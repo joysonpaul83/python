@@ -1,0 +1,57 @@
+import socket
+host = "127.0.0.1"
+port = 5001
+server = socket.socket()
+server.bind((host,port))
+server.listen()
+conn, addr = server.accept()
+print ("Connection from: " + str(addr))
+while True:
+   data = conn.recv(1024).decode()
+   if not data:
+      break
+   data = str(data).upper()
+   print (" from client: " + str(data))
+   data = input("type message: ")
+   conn.send(data.encode())
+conn.close()
+-------------------------------------------------
+import socket
+host = '127.0.0.1'
+port = 5001
+obj = socket.socket()
+obj.connect((host,port))
+message = input("type message: ")
+while message != 'q':
+   obj.send(message.encode())
+   data = obj.recv(1024).decode()
+   print ('Received from server: ' + data)
+   message = input("type message: ")
+obj.close()
+----------------------------------------
+import socket
+s = socket.socket()
+print("Socket successfully created")
+
+port = 40674
+
+s.bind(('', port))
+print("socket binded to %s" % (port))
+
+s.listen(5)
+print("socket is listening")
+
+
+while True:
+
+    c, addr = s.accept()
+    print('Got connection from', addr)
+    c.send(b'Thank you for connecting')
+    c.close()
+-------------------------------------------------
+import socket
+s = socket.socket()
+port = 40674
+s.connect(('127.0.0.1', port))
+print(s.recv(1024))
+s.close()
